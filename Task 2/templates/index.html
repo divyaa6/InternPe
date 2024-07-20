@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Car Price Prediction</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;900&display=swap");
+      body {
+        background: linear-gradient(to right, #e0f7fa, #b9fbc0);
+        font-family: "Poppins", sans-serif;
+        color: #333;
+      }
+      .form-container {
+        margin-top: 30px;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 12px;
+        background: #ffffff;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .form-container:hover {
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
+      }
+      h2 {
+        color: #007bff;
+        font-size: 22px;
+        margin-bottom: 20px;
+        text-align: center;
+        font-weight: 600;
+      }
+      .form-group label {
+        color: #0056b3;
+        font-weight: 500;
+        font-size: 14px;
+      }
+      .form-group .col-sm-8 {
+        padding-left: 0;
+      }
+      .form-group input {
+        border-radius: 8px;
+        border: 1px solid #b3e5fc;
+        padding: 8px 12px;
+        font-size: 14px;
+        width: 100%;
+        box-sizing: border-box;
+        transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+      }
+      .form-group input:focus {
+        border-color: #007bff;
+        outline: none;
+        box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+      }
+      .btn {
+        background: #007bff;
+        color: #ffffff;
+        border: none;
+        border-radius: 8px;
+        padding: 10px 18px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+      }
+      .btn:hover {
+        background: #0056b3;
+        transform: translateY(-2px);
+      }
+      .btn:active {
+        background: #003d7a;
+        transform: translateY(0);
+      }
+      .result {
+        margin-top: 20px;
+        padding: 15px;
+        border-radius: 12px;
+        background-color: #e3f2fd;
+        color: #01579b;
+        border: 1px solid #b3e5fc;
+        font-size: 16px;
+        text-align: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-container">
+            <h2>Car Price Prediction</h2>
+            <form action="/predict" method="post">
+              <div class="form-group row">
+                <label class="control-label col-sm-4" for="model"
+                  >Car Model</label
+                >
+                <div class="col-sm-8">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="model"
+                    placeholder="Enter Car Model"
+                    name="f1"
+                    value="{{ request.form['f1'] }}"
+                  />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="control-label col-sm-4" for="company"
+                  >Company</label
+                >
+                <div class="col-sm-8">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="company"
+                    placeholder="Enter Company"
+                    name="f2"
+                    value="{{ request.form['f2'] }}"
+                  />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="control-label col-sm-4" for="year">Year</label>
+                <div class="col-sm-8">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="year"
+                    placeholder="Enter Year"
+                    name="f3"
+                    value="{{ request.form['f3'] }}"
+                  />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="control-label col-sm-4" for="Kms Driven"
+                  >Kms Driven</label
+                >
+                <div class="col-sm-8">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="Kms Driven"
+                    placeholder="Enter Kms Driven"
+                    name="f4"
+                    value="{{ request.form['f4'] }}"
+                  />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="control-label col-sm-4" for="fuel"
+                  >Fuel Type</label
+                >
+                <div class="col-sm-8">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="fuel"
+                    placeholder="Enter Fuel Type"
+                    name="f5"
+                    value="{{ request.form['f5'] }}"
+                  />
+                </div>
+              </div>
+              <div class="form-group row text-center">
+                <div class="col-sm-12">
+                  <button type="submit" class="btn">Submit</button>
+                </div>
+              </div>
+            </form>
+            <br />
+            {% if prediction_text %}
+            <div class="result">
+              <h2>{{ prediction_text }}</h2>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
